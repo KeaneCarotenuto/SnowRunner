@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmeKDOHneyp2cbiXg8I6Wqm7EnzCuykCskKfmjyJ3+1OdsqIoSVQj6ombeyv46b+Ee1P1uvS+DfDmaP4h2P2iFanoYA2oo17/lfMadT6grPf3twpjytCoqMh7q/CWEZNcSfTfE3CzJpgyNS3aW6jW2qIXBu0LEW81ywNVVtgY+lk6bpzG607bwUigWwpIX81SsPQR1sR9Qv9NaXb7y0UkIzZcZBOCY1jGTTSgC/kjATnReMkdl/kdAyHiXpFz92eFSX0UILjbE8xc68MWofhPbRiamhjz9LkeUdYkxlb2Iw5ijp80ujB+jQMDJ6+zbdKwNcJts+rbCxccq/qR0gGR7wIDAQAB
+  androidKeystorePath: C:\Users\keane\.android\debug.keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []
