@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2115301841, guid: c49f2b3ca212b47fc9cd8ce655177c89, type: 3}
+  m_Name: FacebookSettings
+  m_EditorClassIdentifier: 
+  selectedAppIndex: 0
+  clientTokens:
+  - 7313f62f0068427628edac71394ab685
+  appIds:
+  - 618973773031793
+  appLabels:
+  - SnowRunner
+  cookie: 1
+  logging: 1
+  status: 1
+  xfbml: 0
+  frictionlessRequests: 1
+  androidKeystorePath: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmeKDOHneyp2cbiXg8I6Wqm7EnzCuykCskKfmjyJ3+1OdsqIoSVQj6ombeyv46b+Ee1P1uvS+DfDmaP4h2P2iFanoYA2oo17/lfMadT6grPf3twpjytCoqMh7q/CWEZNcSfTfE3CzJpgyNS3aW6jW2qIXBu0LEW81ywNVVtgY+lk6bpzG607bwUigWwpIX81SsPQR1sR9Qv9NaXb7y0UkIzZcZBOCY1jGTTSgC/kjATnReMkdl/kdAyHiXpFz92eFSX0UILjbE8xc68MWofhPbRiamhjz9LkeUdYkxlb2Iw5ijp80ujB+jQMDJ6+zbdKwNcJts+rbCxccq/qR0gGR7wIDAQAB
+  iosURLSuffix: 
+  appLinkSchemes:
+  - list: []
+  uploadAccessToken: 
+  autoLogAppEventsEnabled: 1
+  advertiserIDCollectionEnabled: 1
