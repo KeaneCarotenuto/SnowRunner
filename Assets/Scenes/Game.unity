@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 47368318}
   m_Layer: 0
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 149482586}
   m_Layer: 0
   m_Name: LL2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 675288594}
   m_Layer: 0
   m_Name: LA1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1228,7 +1228,7 @@ GameObject:
   - component: {fileID: 708727825}
   m_Layer: 0
   m_Name: RL1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1745,7 +1745,7 @@ GameObject:
   - component: {fileID: 947662059}
   m_Layer: 0
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1934,8 +1934,7 @@ MonoBehaviour:
   board: {fileID: 1278942847}
   m_currentTerrain: {fileID: 177817903}
   m_possibleTerrain:
-  - {fileID: 4398195770511719766, guid: d727c95d0a9f31048947ec5253d11f4b, type: 3}
-  - {fileID: 4398195770511719766, guid: 65fc4e9ec5a930b42ac0172d67ce05d6, type: 3}
+  - {fileID: 4398195770511719766, guid: 4dfaf395a01213143965eccfa8f20d53, type: 3}
   m_oldTerrain: []
 --- !u!1 &1066351670
 GameObject:
@@ -2086,7 +2085,7 @@ GameObject:
   - component: {fileID: 1110880820}
   m_Layer: 0
   m_Name: RA1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2265,7 +2264,7 @@ GameObject:
   - component: {fileID: 1229260552}
   m_Layer: 0
   m_Name: LA2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2531,7 +2530,7 @@ GameObject:
   - component: {fileID: 1257939879}
   m_Layer: 0
   m_Name: RL2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2687,7 +2686,7 @@ GameObject:
   - component: {fileID: 1278942849}
   m_Layer: 0
   m_Name: Board
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3181,7 +3180,7 @@ GameObject:
   - component: {fileID: 1612613272}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3225,7 +3224,7 @@ GameObject:
   - component: {fileID: 1813404358}
   m_Layer: 0
   m_Name: RA2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3358,7 +3357,7 @@ GameObject:
   - component: {fileID: 1839853978}
   m_Layer: 0
   m_Name: LL1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

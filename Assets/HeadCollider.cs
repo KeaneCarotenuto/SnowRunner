@@ -19,7 +19,7 @@ public class HeadCollider : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (m_onCollisionEnter != null){
+        if (m_onCollisionEnter != null && other.gameObject.tag != "Player"){
             m_onCollisionEnter?.Invoke(other);
         }
     }

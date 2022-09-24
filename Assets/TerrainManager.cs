@@ -45,6 +45,11 @@ public class TerrainManager : MonoBehaviour
 
         // instantiate the terrain
         GameObject newTerrain = Instantiate(newTerrainPrefab, Vector3.zero, Quaternion.identity);
+        
+        // if TerrainGenerator script exists, generate the terrain
+        if (newTerrain.GetComponent<TerrainGenerator>() != null){
+            newTerrain.GetComponent<TerrainGenerator>().GenerateTerrain();
+        }
 
         // set the pos of new terrain so start point is at end point of current terrain
         Vector3 newPosToStart = newTerrain.GetComponent<Terrain>().m_startPoint.transform.position - newTerrain.transform.position;
