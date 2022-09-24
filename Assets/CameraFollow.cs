@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
+    public Transform m_target;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,7 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         // follow the target smoothly (dont change the z position)
-        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
+        Vector3 targetPosition = new Vector3(m_target.position.x, m_target.position.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * 10);
     }
 }
