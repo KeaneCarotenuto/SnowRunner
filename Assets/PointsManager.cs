@@ -16,6 +16,10 @@ public class PointsManager : MonoBehaviour
     public class Trick{
         public TrickType m_type;
         public int m_timesDone;
+
+        public string ToText(){
+            return m_timesDone + "x\u00A0" + m_type.ToString() + " " + GetPoints(this) + "pts\n";
+        }
     }
 
     public TextMeshProUGUI m_pointsText;
@@ -38,9 +42,8 @@ public class PointsManager : MonoBehaviour
 
         // update trick text
         string trickText = "";
-        foreach (Trick trick in m_trickPerformed)
-        {
-            trickText += trick.m_timesDone + "x\u00A0" + trick.m_type.ToString() + " " + GetPoints(trick) + "pts\n";
+        for (int i = m_trickPerformed.Count - 1; i >= 0; i--){
+            trickText += m_trickPerformed[i].ToText();
         }
         m_trickText.text = trickText;
     }
@@ -59,7 +62,7 @@ public class PointsManager : MonoBehaviour
         }
     }
 
-    private int GetPoints(Trick _trick)
+    static public int GetPoints(Trick _trick)
     {
         switch (_trick.m_type)
         {
