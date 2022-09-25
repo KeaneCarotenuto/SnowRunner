@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Terrain
   m_EditorClassIdentifier: 
   m_Angles:
-  - m_Start: -45
-    m_End: 45
+  - m_Start: -90
+    m_End: 90
     m_Order: 0
     m_Sprites:
     - {fileID: 21300000, guid: 6f15c28b04bf4f74bb912241839aa6f4, type: 3}
@@ -24,11 +24,11 @@ MonoBehaviour:
     m_Sprites:
     - {fileID: 21300000, guid: a9d219889bb96d142a4d726d70a81ad6, type: 3}
   - m_Start: -135
-    m_End: -45
+    m_End: -90
     m_Order: 0
     m_Sprites:
     - {fileID: 0}
-  - m_Start: 45
+  - m_Start: 90
     m_End: 135
     m_Order: 0
     m_Sprites:

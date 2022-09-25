@@ -12,9 +12,16 @@ public class TerrainGenerator : MonoBehaviour
     public SpriteShapeController m_spriteShapeController;
     public EdgeCollider2D m_edgeCollider;
 
+    [Header("Params")]
     public int m_numPoints = 150;
     public float m_distanceBetweenPoints = 0.5f;
     public float m_gradient = 0.25f;
+    public float m_scale = 40f;
+    public float m_noiseScale = 0.1f;
+
+    [Header("Seed")]
+    public int m_seed = 0;
+    public bool m_randomSeed = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +36,7 @@ public class TerrainGenerator : MonoBehaviour
         m_edgeCollider = GetComponent<EdgeCollider2D>();
 
         // randomize the seed for perlin noise
-        int seed = Random.Range(0,10000);
+        if (m_randomSeed) m_seed = Random.Range(0,10000);
 
         // clear the sprite shape controller
         m_spriteShapeController.spline.Clear();
@@ -44,10 +51,10 @@ public class TerrainGenerator : MonoBehaviour
             Vector3 nextPoint =  (i > 0 ? points[i - 1] : Vector3.zero) + new Vector3(i > 0 ? m_distanceBetweenPoints : 0, 0, 0);
 
             // get the perlin noise value
-            float perlinNoise = Mathf.PerlinNoise(i * 0.1f + seed, 0 + seed);
+            float perlinNoise = Mathf.PerlinNoise(i * m_noiseScale + m_seed, 0 + m_seed);
 
             // set the y value of the next point
-            nextPoint.y = perlinNoise * 40;
+            nextPoint.y = perlinNoise * m_scale;
 
             // apply the gradient
             nextPoint.y += i * m_distanceBetweenPoints * m_gradient;
@@ -59,6 +66,10 @@ public class TerrainGenerator : MonoBehaviour
         // add edge points (far right and far left below)
         points.Add(new Vector3(points[points.Count - 1].x, points[points.Count - 1].y - 100.0f, 0));
         points.Add(new Vector3(points[0].x, points[0].y - 100.0f, 0));
+
+        // choose one random point to increase by 10
+        int randomPoint = Random.Range(0, points.Count);
+        points[randomPoint] += new Vector3(0, 10, 0);
 
         // add the points to the sprite shape controller
         m_spriteShapeController.spline.Clear();
