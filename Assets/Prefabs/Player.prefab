@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 370489887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: M
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 470205052}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1664100287}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 6558633451737301295}
   - component: {fileID: 6558633451737301282}
   - component: {fileID: 6558633451737301283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Head
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.6}
-  m_ConnectedAnchor: {x: -0.0000012772424, y: 0.51155025}
+  m_ConnectedAnchor: {x: -0.000000028383166, y: 0.5115509}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 6558633451967855046}
   - component: {fileID: 6558633451967855045}
   - component: {fileID: 6558633451967855065}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RL1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.49999997}
-  m_ConnectedAnchor: {x: 0.076405734, y: 0.43162158}
+  m_ConnectedAnchor: {x: 0.0764084, y: 0.43161863}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -421,7 +421,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.5}
-  m_ConnectedAnchor: {x: 0.37385297, y: -0.4403327}
+  m_ConnectedAnchor: {x: 0.37385103, y: -0.44033262}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 6558633452008635356}
   - component: {fileID: 6558633452008635355}
   - component: {fileID: 6558633452008635354}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LA1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.49999997}
-  m_ConnectedAnchor: {x: -0.03703369, y: 0.42424467}
+  m_ConnectedAnchor: {x: -0.037036296, y: 0.42424437}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -602,7 +602,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.5}
-  m_ConnectedAnchor: {x: -0.4409832, y: 0.452089}
+  m_ConnectedAnchor: {x: -0.44098297, y: 0.4520891}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 6558633452368110920}
   - component: {fileID: 6558633452368111031}
   - component: {fileID: 6558633452368111030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Chest
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 6558633452535480720}
   - component: {fileID: 6558633452535480735}
   - component: {fileID: 6558633452535480722}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LL2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -889,7 +889,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.5}
-  m_ConnectedAnchor: {x: -0.28308144, y: 0.2584646}
+  m_ConnectedAnchor: {x: -0.28308165, y: 0.25846162}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -908,7 +908,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6558633452943010640}
   - component: {fileID: 6558633452943010641}
-  m_Layer: 0
+  - component: {fileID: 1612613272}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -966,12 +967,41 @@ MonoBehaviour:
   m_needle: {fileID: 0}
   m_maxSpeed: 20
   m_maxIncreaseRate: 0.1
-  m_touchRadius: 0.1
-  m_touchingLeft: 0
-  m_touchingMiddle: 0
-  m_touchingRight: 0
   m_isDead: 0
-  m_isWalking: 0
+  m_isBoosting: 0
+  m_pointsManager: {fileID: 1612613272}
+  m_touchRadius: 0.1
+  m_leftBoardOnGround: 0
+  m_middleBoardOnGround: 0
+  m_rightBoardOnGround: 0
+  m_startAngle: 0
+  m_groundedLastFrame: 0
+  m_jumpForce: 20
+  m_jumpCooldown: 0.1
+  m_leftPressed: 0
+  m_rightPressed: 0
+  m_leftHeld: 0
+  m_rightHeld: 0
+  m_contTrickFrequency: 10
+  m_contTrickDelay: 0.5
+--- !u!114 &1612613272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6558633452943010655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cba8b9e8cd08cdc41bb668bb11677a17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pointsText: {fileID: 0}
+  m_trickText: {fileID: 0}
+  m_currentCombo: []
+  m_trickFeed: {fileID: 0}
+  ComboUIPrefab: {fileID: 0}
+  m_currentComboUI: {fileID: 0}
 --- !u!1 &6558633453009614603
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +1014,7 @@ GameObject:
   - component: {fileID: 6558633453009614592}
   - component: {fileID: 6558633453009614607}
   - component: {fileID: 6558633453009614606}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RA2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1117,7 +1147,7 @@ GameObject:
   - component: {fileID: 6558633453017767007}
   - component: {fileID: 6558633453017767006}
   - component: {fileID: 6558633453017766994}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LL1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1251,7 +1281,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.49999997}
-  m_ConnectedAnchor: {x: 0.16455324, y: 0.3070714}
+  m_ConnectedAnchor: {x: 0.16455826, y: 0.30707014}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 10
@@ -1275,7 +1305,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.5}
-  m_ConnectedAnchor: {x: -0.38962868, y: -0.44198936}
+  m_ConnectedAnchor: {x: -0.38962954, y: -0.44198987}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1298,7 +1328,7 @@ GameObject:
   - component: {fileID: 6558633453443702782}
   - component: {fileID: 6558633453443702781}
   - component: {fileID: 6558633453443702780}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RA1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1432,7 +1462,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.49999997}
-  m_ConnectedAnchor: {x: 0.083235435, y: 0.42288235}
+  m_ConnectedAnchor: {x: 0.08322271, y: 0.4228813}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1456,7 +1486,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0.5}
-  m_ConnectedAnchor: {x: 0.38872498, y: 0.4371958}
+  m_ConnectedAnchor: {x: 0.38872454, y: 0.43719596}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1477,7 +1507,7 @@ GameObject:
   - component: {fileID: 6558633453545124682}
   - component: {fileID: 6558633453545124680}
   - component: {fileID: 6558633453545124681}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Board
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1565,7 +1595,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 2
-  m_LinearDrag: 0.1
+  m_LinearDrag: 0
   m_AngularDrag: 5
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: d52a424cc149d8442a8c126b22e3d0f2, type: 2}
@@ -1602,7 +1632,7 @@ GameObject:
   - component: {fileID: 6558633453574508129}
   - component: {fileID: 6558633453574508128}
   - component: {fileID: 6558633453574508143}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RL2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1736,7 +1766,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: -0.5}
-  m_ConnectedAnchor: {x: 0.25473207, y: 0.0078547}
+  m_ConnectedAnchor: {x: 0.2547317, y: 0.007862249}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -1757,7 +1787,7 @@ GameObject:
   - component: {fileID: 6558633453635693250}
   - component: {fileID: 6558633453635693249}
   - component: {fileID: 6558633453635693248}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LA2
   m_TagString: Player
   m_Icon: {fileID: 0}

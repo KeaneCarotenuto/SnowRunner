@@ -32,22 +32,48 @@ public class PlayerControl : MonoBehaviour
     public float m_maxIncreaseRate = 0.1f;
 
     public bool m_isDead = false;
+    public bool m_invincible = false;
 
-    public bool m_isWalking = false;
-    private float m_walkStartTime = 0f;
+    public bool m_isBoosting = false;
+    private float m_boostStartTime = 0f;
 
     
     [Header("Tricks")]
     public PointsManager m_pointsManager;
     public float m_touchRadius = 0.1f;
-    public bool m_touchingLeft = false;
-    public bool m_touchingMiddle = false;
-    public bool m_touchingRight = false;
+    public bool m_leftBoardOnGround = false;
+    public bool m_middleBoardOnGround = false;
+    public bool m_rightBoardOnGround = false;
     public float m_startAngle = 0f;
     public bool isInAir {
-        get { return !m_touchingLeft && !m_touchingMiddle && !m_touchingRight; }
+        get { return !m_leftBoardOnGround && !m_middleBoardOnGround && !m_rightBoardOnGround; }
     }
     public bool m_groundedLastFrame = false;
+
+    
+
+    public float m_jumpForce = 10f;
+    public float m_jumpCooldown = 0.1f;
+    private float m_jumpTimer = 0f;
+
+    public bool m_leftPressed = false;
+    public bool m_rightPressed = false;
+
+    public bool m_leftHeld = false;
+    public bool m_rightHeld = false;
+
+    /// <summary>
+    /// The frequency to check for continuous tricks like manuals or stoppies in times per second
+    /// </summary>
+    public float m_contTrickFrequency = 10f;
+    private float m_contTrickTimer = 0f;
+
+    /// <summary>
+    /// The time it takes to start counting continuous tricks as tricks
+    /// </summary>
+    public float m_contTrickDelay = 0.5f;
+    private float m_contTrickDelayTimer = 0f;
+
 
 
     // Start is called before the first frame update
@@ -71,6 +97,8 @@ public class PlayerControl : MonoBehaviour
 
     private void Die()
     {
+        if (m_invincible) return;
+
         m_isDead = true;
 
         // disable hinge joints on all feet
@@ -114,6 +142,10 @@ public class PlayerControl : MonoBehaviour
         UpdateUI();
 
         m_groundedLastFrame = !isInAir;
+
+        // update timers (Time.deltaTime surprisingly DOES work in FixedUpdate, thanks unity!)
+        m_jumpTimer -= Time.deltaTime;
+        m_contTrickTimer -= Time.deltaTime;
     }
 
     private void CalculateScore()
@@ -121,7 +153,7 @@ public class PlayerControl : MonoBehaviour
         if (m_isDead) return;
 
         // add to max speed
-        m_maxSpeed += m_maxIncreaseRate * Time.fixedDeltaTime;
+        //m_maxSpeed += m_maxIncreaseRate * Time.fixedDeltaTime;
 
         // check left, middle, right touch:
         // spherecast from touch position to ground
@@ -132,9 +164,9 @@ public class PlayerControl : MonoBehaviour
         RaycastHit2D middleHit = Physics2D.CircleCast(m_middleTouch.position, m_touchRadius, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
         RaycastHit2D rightHit = Physics2D.CircleCast(m_rightTouch.position, m_touchRadius, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
 
-        m_touchingLeft = leftHit;
-        m_touchingMiddle = middleHit;
-        m_touchingRight = rightHit;
+        m_leftBoardOnGround = leftHit;
+        m_middleBoardOnGround = middleHit;
+        m_rightBoardOnGround = rightHit;
 
         if (m_groundedLastFrame && isInAir){
             // just jumped
@@ -143,8 +175,43 @@ public class PlayerControl : MonoBehaviour
             m_startAngle = m_boardRB.rotation;
         }
 
+        // check for full flips midair
         if (isInAir){
-            // check if we're doing a trick
+            // is in air
+
+            // get current angle
+            float currentAngle = m_boardRB.rotation;
+
+            // get angle difference
+            float angleDiff = currentAngle - m_startAngle;
+
+            // backflip
+            if (angleDiff > 360){
+                // backflip
+                Debug.Log("Backflip!");
+
+                // add to trick list
+                m_pointsManager.AddTrick(PointsManager.TrickType.Backflip);
+
+                m_startAngle = currentAngle;
+            }
+
+            // frontflip
+            if (angleDiff < -360){
+                // frontflip
+                Debug.Log("Frontflip!");
+
+                // add to trick list
+                m_pointsManager.AddTrick(PointsManager.TrickType.Frontflip);
+
+                m_startAngle = currentAngle;
+            }
+        }
+
+        // check for flips upon landing
+        if (!m_groundedLastFrame && !isInAir){
+            // just landed
+
             // get current angle
             float currentAngle = m_boardRB.rotation;
 
@@ -173,35 +240,80 @@ public class PlayerControl : MonoBehaviour
                 m_startAngle = currentAngle;
             }
         }
+
+        if (m_leftBoardOnGround && !m_rightBoardOnGround && !m_middleBoardOnGround && m_contTrickTimer <= 0f){
+            // cont delay timer
+            m_contTrickDelayTimer += Time.fixedDeltaTime;
+            if (m_contTrickDelayTimer >= m_contTrickDelay){
+                // Manual
+                Debug.Log("Manual!");
+
+                // add to trick list
+                m_pointsManager.AddTrick(PointsManager.TrickType.Manual);
+
+                m_contTrickTimer = 1f / m_contTrickFrequency;
+            }
+        }
+
+        if (m_rightBoardOnGround && !m_leftBoardOnGround && !m_middleBoardOnGround && m_contTrickTimer <= 0f){
+            // cont delay timer
+            m_contTrickDelayTimer += Time.fixedDeltaTime;
+            if (m_contTrickDelayTimer >= m_contTrickDelay)
+            {
+                // Stoppie
+                Debug.Log("Stoppie!");
+
+                // add to trick list
+                m_pointsManager.AddTrick(PointsManager.TrickType.Stoppie);
+
+                // Slow down the board
+                m_boardRB.velocity = new Vector2(Mathf.Lerp(m_boardRB.velocity.x, 0f, Time.deltaTime * 0.5f), m_boardRB.velocity.y);
+
+                // reset timer
+                m_contTrickTimer = 1f / m_contTrickFrequency;
+            }
+        }
+
+        // if both left and right are on ground, stop combo
+        if (m_leftBoardOnGround && m_rightBoardOnGround){
+            m_pointsManager.StopCombo();
+            m_contTrickDelayTimer = 0f;
+        }
     }
 
     private void GetInput()
     {
         if (m_isDead) return;
 
-        // if A is down, rotate left
-        if (Input.GetKey(KeyCode.A))
+        // if A is down OR if left side of screen is touched, rotate left
+        m_leftHeld = m_leftPressed;
+        m_leftPressed = Input.GetKey(KeyCode.A) || (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2);
+        if (m_leftHeld && m_leftPressed) m_leftHeld = true;
+        else m_leftHeld = false;
+
+        // if D is down OR if right side of screen is touched, rotate right
+        m_rightHeld = m_rightPressed;
+        m_rightPressed = Input.GetKey(KeyCode.D) || (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2);
+        if (m_rightHeld && m_rightPressed) m_rightHeld = true;
+        else m_rightHeld = false;
+
+        // if ONLY left is pressed, rotate left
+        if (m_leftPressed && !m_rightPressed && !(m_leftBoardOnGround && m_rightBoardOnGround))
         {
             RotateLeft();
         }
-
-        // if D is down, rotate right
-        if (Input.GetKey(KeyCode.D))
+        // if ONLY right is pressed, rotate right
+        else if (m_rightPressed && !m_leftPressed && !(m_leftBoardOnGround && m_rightBoardOnGround))
         {
             RotateRight();
         }
-
-        // if left side of screen is touched, rotate left
-        if (Input.touchCount > 0 && Input.GetTouch(0).position.x < Screen.width / 2)
+        // if both pressed and NOT held, jump
+        else if (m_leftBoardOnGround && m_rightBoardOnGround && ((m_leftPressed && !m_leftHeld) || (m_rightPressed && !m_rightHeld)) /* && (!m_leftHeld || !m_rightHeld) */)
         {
-            RotateLeft();
+            TryJump();
         }
 
-        // if right side of screen is touched, rotate right
-        if (Input.touchCount > 0 && Input.GetTouch(0).position.x > Screen.width / 2)
-        {
-            RotateRight();
-        }
+        // held checks
     }
 
     private void CalculateSpeed()
@@ -214,30 +326,24 @@ public class PlayerControl : MonoBehaviour
             m_boardRB.velocity = new Vector2(m_maxSpeed, m_boardRB.velocity.y);
         }
 
-        // if moving backwards, start walking
-        if (!m_isWalking && m_boardRB.velocity.x < 0.0f)
+        // if moving backwards, start boosting
+        if (!m_isBoosting && m_boardRB.velocity.x < 0.0f)
         {
-            m_isWalking = true;
-            m_walkStartTime = Time.time;
+            m_isBoosting = true;
+            m_boostStartTime = Time.time;
         }
 
-        // if walking, move forwards slowly
-        if (m_isWalking)
+        // if boosting, move forwards slowly
+        if (m_isBoosting)
         {
             // min velocity is 4.5f (lerp from 0-4.5f over 1 second)
-            m_boardRB.velocity = new Vector2(Mathf.Max(m_boardRB.velocity.x, Mathf.Lerp(0f,4.5f, Time.time - m_walkStartTime)), m_boardRB.velocity.y);
+            m_boardRB.velocity = new Vector2(Mathf.Max(m_boardRB.velocity.x, Mathf.Lerp(0f,4.5f, Time.time - m_boostStartTime)), m_boardRB.velocity.y);
 
-            // if x velocity is greater than 5, stop walking
+            // if x velocity is greater than 5, stop boosting
             if (m_boardRB.velocity.x > 5)
             {
-                m_isWalking = false;
+                m_isBoosting = false;
             }
-        }
-
-        if (m_touchingRight && !m_touchingLeft && !m_touchingMiddle){
-            // Stoppie Trick
-            // Slow down the board
-            m_boardRB.velocity = new Vector2(Mathf.Lerp(m_boardRB.velocity.x, 0f, Time.deltaTime * 0.5f), m_boardRB.velocity.y);
         }
     }
 
@@ -277,5 +383,16 @@ public class PlayerControl : MonoBehaviour
 
     public void RotateRight(){
         m_boardRB.angularVelocity = -200;
+    }    
+
+    private void TryJump()
+    {
+        if (m_jumpTimer > 0.0f) return;
+        
+        // add force to board
+        m_boardRB.AddForce(Vector2.up * m_jumpForce, ForceMode2D.Impulse);
+
+        // reset timer
+        m_jumpTimer = m_jumpCooldown;
     }
 }

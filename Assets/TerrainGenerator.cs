@@ -20,7 +20,7 @@ public class TerrainGenerator : MonoBehaviour
     public float m_noiseScale = 0.1f;
 
     [Header("Seed")]
-    public int m_seed = 0;
+    public float m_seed = 0;
     public bool m_randomSeed = true;
 
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class TerrainGenerator : MonoBehaviour
         m_edgeCollider = GetComponent<EdgeCollider2D>();
 
         // randomize the seed for perlin noise
-        if (m_randomSeed) m_seed = Random.Range(0,10000);
+        if (m_randomSeed) m_seed = Random.Range(0.0f,10000.0f);
 
         // clear the sprite shape controller
         m_spriteShapeController.spline.Clear();
@@ -51,13 +51,13 @@ public class TerrainGenerator : MonoBehaviour
             Vector3 nextPoint =  (i > 0 ? points[i - 1] : Vector3.zero) + new Vector3(i > 0 ? m_distanceBetweenPoints : 0, 0, 0);
 
             // get the perlin noise value
-            float perlinNoise = Mathf.PerlinNoise(i * m_noiseScale + m_seed, 0 + m_seed);
+            float perlinNoise = Mathf.PerlinNoise((float)i * m_noiseScale + (float)m_seed, 0.0f + (float)m_seed);
 
             // set the y value of the next point
             nextPoint.y = perlinNoise * m_scale;
 
             // apply the gradient
-            nextPoint.y += i * m_distanceBetweenPoints * m_gradient;
+            nextPoint.y += i * (float)m_distanceBetweenPoints * m_gradient;
 
             // add the next point to the list
             points.Add(nextPoint);
@@ -68,8 +68,8 @@ public class TerrainGenerator : MonoBehaviour
         points.Add(new Vector3(points[0].x, points[0].y - 100.0f, 0));
 
         // choose one random point to increase by 10
-        int randomPoint = Random.Range(0, points.Count);
-        points[randomPoint] += new Vector3(0, 10, 0);
+        // int randomPoint = Random.Range(0, points.Count);
+        // points[randomPoint] += new Vector3(0, 10, 0);
 
         // add the points to the sprite shape controller
         m_spriteShapeController.spline.Clear();
@@ -103,6 +103,45 @@ public class TerrainGenerator : MonoBehaviour
         // set start and end points of Terrain
         GetComponent<Terrain>().m_startPoint.transform.position = points[0];
         GetComponent<Terrain>().m_endPoint.transform.position = points[points.Count - 3];
+    }
+
+    private bool forceGenerateOnce = true;
+
+    void OnGUI()
+    {
+
+        var sc = GetComponent<SpriteShapeController>();
+
+        var sr = GetComponent<SpriteShapeRenderer>();
+
+        if (sr != null)
+
+        {
+
+            if (!sr.isVisible && forceGenerateOnce)
+
+            {
+
+                sc.BakeMesh();
+
+                UnityEngine.Rendering.CommandBuffer rc = new UnityEngine.Rendering.CommandBuffer();
+
+                var rt = RenderTexture.GetTemporary(256, 256, 0, RenderTextureFormat.ARGB32);
+
+                Graphics.SetRenderTarget(rt);
+
+                rc.DrawRenderer(sr, sr.sharedMaterial);
+
+                Graphics.ExecuteCommandBuffer(rc);
+
+                Debug.Log("SpriteShape Generated");
+
+                forceGenerateOnce = false;
+
+            }
+
+        }
+
     }
 
     // custom editor
