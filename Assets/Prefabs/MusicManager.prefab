@@ -140,5 +140,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8359fb53364824040bc79f05209c0f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_volume: 0.01
+  m_volume: 0.02
   m_fadeInTime: 10
