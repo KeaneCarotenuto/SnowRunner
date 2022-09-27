@@ -21,12 +21,8 @@ public class TerrainGenerator : MonoBehaviour
 
     [Header("Seed")]
     public float m_seed = 0;
+    public List<float> m_seeds = new List<float>();
     public bool m_randomSeed = true;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     /// <summary>
     /// Uses perlin noise to generate a terrain with SpriteShapeController
@@ -36,7 +32,7 @@ public class TerrainGenerator : MonoBehaviour
         m_edgeCollider = GetComponent<EdgeCollider2D>();
 
         // randomize the seed for perlin noise
-        if (m_randomSeed) m_seed = Random.Range(0.0f,10000.0f);
+        if (m_randomSeed) NewSeed();
 
         // clear the sprite shape controller
         m_spriteShapeController.spline.Clear();
@@ -82,12 +78,14 @@ public class TerrainGenerator : MonoBehaviour
             m_spriteShapeController.spline.SetTangentMode(i, ShapeTangentMode.Continuous);
         
             // get direction between prev and next point (if they exist)
-            Vector3 direction = Vector3.zero;
+            Vector3 direction = Vector3.one;
             if (i > 0 && i < m_spriteShapeController.spline.GetPointCount() - 1){
                 direction = (m_spriteShapeController.spline.GetPosition(i + 1) - m_spriteShapeController.spline.GetPosition(i - 1)).normalized;
             }
 
             direction = direction * m_distanceBetweenPoints / 2.5f;
+            // set z to 1
+            direction = new Vector3(direction.x, direction.y, 1);
 
             m_spriteShapeController.spline.SetLeftTangent(i, -direction);
             m_spriteShapeController.spline.SetRightTangent(i, direction);
@@ -103,6 +101,15 @@ public class TerrainGenerator : MonoBehaviour
         // set start and end points of Terrain
         GetComponent<Terrain>().m_startPoint.transform.position = points[0];
         GetComponent<Terrain>().m_endPoint.transform.position = points[points.Count - 3];
+    }
+
+    private void NewSeed()
+    {
+        m_seed = Random.Range(0.0f, 10000.0f);
+        m_seeds.Add(m_seed);
+
+        // only keep the last 30 seeds
+        if (m_seeds.Count > 30) m_seeds.RemoveAt(0);
     }
 
     private bool forceGenerateOnce = true;
