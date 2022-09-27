@@ -110,10 +110,10 @@ public class DeathManager : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowL
         }
         else
         {
-
+            string desc = GetShareDescription();
             FB.ShareLink(contentTitle: "SnowRunner",
-            contentURL: new System.Uri("http://www.growlgamesstudio.com"),
-            contentDescription: GetShareDescription(),
+            contentURL: new System.Uri("https://play.google.com/store/apps/details?id=com.DefaultCompany.SnowRunner"),
+            contentDescription: desc,
             callback: onShare);
         }
     }

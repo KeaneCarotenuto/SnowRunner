@@ -45,7 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _androidGameId: 4937863
   _iOSGameId: 4937862
-  _testMode: 1
-  _listeners:
-  - {fileID: 0}
-  - {fileID: 0}
+  _testMode: 0

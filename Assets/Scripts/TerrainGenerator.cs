@@ -26,6 +26,55 @@ public class TerrainGenerator : MonoBehaviour
     public List<float> m_seeds = new List<float>();
     public bool m_randomSeed = true;
 
+    
+    [System.Serializable]
+    public class Spawnable{
+        public GameObject m_prefab;
+        public float m_minDistance = 0.0f;
+        public float m_maxDistance = 10.0f;
+        public float m_distance = 0.0f;
+        public float m_lastPosition = 0.0f;
+    }
+
+    [Header("Prefabs")]
+    public List<Spawnable> m_spawnables = new List<Spawnable>();
+    
+
+    private void Update() {
+        // get the top right corner of the screen in world space
+        Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        // add move 20 units to the right
+        topRight.x += 20;
+
+        foreach (Spawnable spawn in m_spawnables){
+            // if m_lastTreePosition is 0, set it to the top right
+            if (spawn.m_lastPosition == 0) {
+                spawn.m_lastPosition = topRight.x;
+            }
+
+            // if greater than tree distance, spawn a tree
+            if (spawn.m_lastPosition + spawn.m_distance < topRight.x) {
+                // raycast down to find the ground, then spawn a tree aligned to the normal
+                int mask = LayerMask.GetMask("Ground");
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(spawn.m_lastPosition + spawn.m_distance, topRight.y), Vector2.down, 1000.0f, mask);
+                if (hit.collider != null && hit.collider == m_edgeCollider) {
+                    GameObject tree = Instantiate(spawn.m_prefab, hit.point, Quaternion.identity);
+                    tree.transform.up = hit.normal;
+
+                    // set the parent to this
+                    tree.transform.parent = transform;
+
+                    // set the last tree position
+                    spawn.m_lastPosition = spawn.m_lastPosition + spawn.m_distance;
+
+                    // set the next tree distance
+                    spawn.m_distance = Random.Range(spawn.m_minDistance, spawn.m_maxDistance);
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Uses perlin noise to generate a terrain with SpriteShapeController
     /// </summary>

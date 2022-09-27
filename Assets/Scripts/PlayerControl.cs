@@ -134,6 +134,9 @@ public class PlayerControl : MonoBehaviour
 
     private void OnHeadCollision(Collision2D other)
     {
+        // if both left and right board are on the ground, return, as they are safe
+        if (m_leftBoardOnGround && m_rightBoardOnGround) return;
+
         Die();
     }
 
@@ -558,6 +561,37 @@ public class PlayerControl : MonoBehaviour
 
             // lerp AudioSource volume to 0.25
             m_snowSound.volume = Mathf.Lerp(m_snowSound.volume, tempVol, Time.deltaTime * 10.0f);
+        }
+
+        float particleSpeed = m_boardRB.velocity.x / 5.0f;
+        particleSpeed = Mathf.Max(particleSpeed, 1.0f);
+
+        // left particles
+        if (m_leftBoardOnGround){
+            // play the particle system
+            m_leftTouch.GetComponent<ParticleSystem>().Play();
+
+            // set the speed of the particle system
+            var main = m_leftTouch.GetComponent<ParticleSystem>().main;
+            main.startSpeed = new ParticleSystem.MinMaxCurve(main.startSpeed.constantMin, particleSpeed);
+        }
+        else{
+            // stop the particle system
+            m_leftTouch.GetComponent<ParticleSystem>().Stop();
+        }
+
+        // right particles
+        if (m_rightBoardOnGround){
+            // play the particle system
+            m_rightTouch.GetComponent<ParticleSystem>().Play();
+
+            // set the speed of the particle system
+            var main = m_rightTouch.GetComponent<ParticleSystem>().main;
+            main.startSpeed = new ParticleSystem.MinMaxCurve(main.startSpeed.constantMin, particleSpeed);
+        }
+        else{
+            // stop the particle system
+            m_rightTouch.GetComponent<ParticleSystem>().Stop();
         }
     }
 

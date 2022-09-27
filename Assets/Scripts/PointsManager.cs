@@ -34,6 +34,8 @@ public class PointsManager : MonoBehaviour
     public GameObject ComboUIPrefab;
     public GameObject m_currentComboUI;
 
+    public float m_pointMultiplier = 1.0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +91,7 @@ public class PointsManager : MonoBehaviour
         }
     }
 
-    static public int GetPoints(Trick _trick)
+    public int GetPoints(Trick _trick)
     {
         float baseValue = 0.0f;
         switch (_trick.m_type)
@@ -122,7 +124,11 @@ public class PointsManager : MonoBehaviour
             val *= 2;
         }
 
-        return (int)val;
+        // apply point multiplier
+        val *= m_pointMultiplier;
+
+        // round up
+        return (int)Math.Ceiling(val);
     }
 
     private int GetComboPoints(List<Trick> _combo)
