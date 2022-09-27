@@ -1,0 +1,9 @@
+lastUpgrade=01101
+proj.pluginVersion=0.11.01
+proj.AppId=396921874873
+and.BundleId=com.DefaultCompany.SnowRunner
+proj.classDir=Assets
+proj.ConstantsClassName=SnowRunnerAchievements
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e396921874873%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.DefaultCompany.SnowRunner%3c%2fstring%3e%0d%0a++%3c%21--achievement+30km%2fh--%3e%0d%0a++%3cstring+name%3d%22achievement_30kmh%22+translatable%3d%22false%22%3eCgkIudOM08YLEAIQAA%3c%2fstring%3e%0d%0a++%3c%21--achievement+40km%2fh--%3e%0d%0a++%3cstring+name%3d%22achievement_40kmh%22+translatable%3d%22false%22%3eCgkIudOM08YLEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+100+points--%3e%0d%0a++%3cstring+name%3d%22achievement_100_points%22+translatable%3d%22false%22%3eCgkIudOM08YLEAIQAg%3c%2fstring%3e%0d%0a++%3c%21--achievement+200+points--%3e%0d%0a++%3cstring+name%3d%22achievement_200_points%22+translatable%3d%22false%22%3eCgkIudOM08YLEAIQAw%3c%2fstring%3e%0d%0a++%3c%21--achievement+Doubled+up%21--%3e%0d%0a++%3cstring+name%3d%22achievement_doubled_up%22+translatable%3d%22false%22%3eCgkIudOM08YLEAIQBA%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=
+android.SetupDone=true
