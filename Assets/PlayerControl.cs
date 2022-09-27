@@ -37,6 +37,13 @@ public class PlayerControl : MonoBehaviour
     public bool m_isBoosting = false;
     private float m_boostStartTime = 0f;
 
+    [Header("Input")]
+    public bool m_leftPressed = false;
+    public bool m_rightPressed = false;
+
+    public bool m_leftHeld = false;
+    public bool m_rightHeld = false;
+
     
     [Header("Tricks")]
     public PointsManager m_pointsManager;
@@ -51,16 +58,10 @@ public class PlayerControl : MonoBehaviour
     public bool m_groundedLastFrame = false;
 
     
-
+    [Header("Jumping")]
     public float m_jumpForce = 10f;
     public float m_jumpCooldown = 0.1f;
     private float m_jumpTimer = 0f;
-
-    public bool m_leftPressed = false;
-    public bool m_rightPressed = false;
-
-    public bool m_leftHeld = false;
-    public bool m_rightHeld = false;
 
     /// <summary>
     /// The frequency to check for continuous tricks like manuals or stoppies in times per second
@@ -75,11 +76,30 @@ public class PlayerControl : MonoBehaviour
     private float m_contTrickDelayTimer = 0f;
 
 
+    [Serializable]
+    private class BodyTracker{
+        public GameObject m_bodyPart;
+        public Vector3 m_initialPosition;
+        public Quaternion m_initialRotation;
+    }
+    private List<BodyTracker> m_bodyTrackers = new List<BodyTracker>();
+    private Vector3 m_deathPosition;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        // track all children, to reset them when the player revives
+        m_bodyTrackers = new List<BodyTracker>();
+        foreach (Transform child in transform)
+        {
+            m_bodyTrackers.Add(new BodyTracker(){
+                m_bodyPart = child.gameObject,
+                m_initialPosition = child.localPosition,
+                m_initialRotation = child.localRotation
+            });
+        }
     }
 
     private void OnEnable() {
@@ -99,7 +119,11 @@ public class PlayerControl : MonoBehaviour
     {
         if (m_invincible) return;
 
+        m_pointsManager.StopCombo();
+
         m_isDead = true;
+
+        m_deathPosition = m_boardRB.transform.position;
 
         // disable hinge joints on all feet
         foreach (GameObject foot in m_feet)
@@ -129,6 +153,57 @@ public class PlayerControl : MonoBehaviour
 
         // get main cam and set follor target to head
         Camera.main.GetComponent<CameraFollow>().m_target = m_head.transform;
+
+        // DeathManager
+        DeathManager dm = FindObjectOfType<DeathManager>();
+        dm.PlayerDied();
+    }
+
+    public void Revive(){
+        m_isDead = false;
+
+        // reset all body parts to their initial positions
+        foreach (BodyTracker tracker in m_bodyTrackers)
+        {
+            tracker.m_bodyPart.transform.localPosition = tracker.m_initialPosition;
+            tracker.m_bodyPart.transform.localRotation = tracker.m_initialRotation;
+        }
+
+        // move this to the death position
+        transform.position = m_deathPosition;
+
+        // enable hinge joints on all feet
+        foreach (GameObject foot in m_feet)
+        {
+            foot.GetComponent<HingeJoint2D>().enabled = true;
+        }
+
+        // set all joint limits to -10,10
+        HingeJoint2D[] joints = GetComponentsInChildren<HingeJoint2D>();
+        foreach (HingeJoint2D joint in joints)
+        {
+            JointAngleLimits2D limits = joint.limits;
+            limits.min = -10;
+            limits.max = 10;
+            joint.limits = limits;
+        }
+
+        Rigidbody2D[] rigidbodies = GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D rb in rigidbodies)
+        {
+            // set all rigidbodies to mass 0.2 (excluding the board)
+            if (rb.gameObject != m_boardRB.gameObject)
+            {
+                rb.mass = 0.2f;
+            }
+
+            // remove all velocity and angular velocity
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+
+        // get main cam and set follow target to head
+        Camera.main.GetComponent<CameraFollow>().m_target = m_boardRB.transform;
     }
 
     private void FixedUpdate()
@@ -146,6 +221,14 @@ public class PlayerControl : MonoBehaviour
         // update timers (Time.deltaTime surprisingly DOES work in FixedUpdate, thanks unity!)
         m_jumpTimer -= Time.deltaTime;
         m_contTrickTimer -= Time.deltaTime;
+    }
+
+    private void Update() {
+        // if R is pressed, reset the player
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Revive();
+        }
     }
 
     private void CalculateScore()

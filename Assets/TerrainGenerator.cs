@@ -18,6 +18,8 @@ public class TerrainGenerator : MonoBehaviour
     public float m_gradient = 0.25f;
     public float m_scale = 40f;
     public float m_noiseScale = 0.1f;
+    public int m_dropCount = 10;
+    public float m_dropHeight = 10.0f;
 
     [Header("Seed")]
     public float m_seed = 0;
@@ -40,6 +42,18 @@ public class TerrainGenerator : MonoBehaviour
         // create a list of points
         List<Vector3> points = new List<Vector3>();
 
+        // random drop locations
+        int dropsDone = 0;
+        // choose 10 random points to drop
+        List<int> dropPoints = new List<int>();
+        while (dropsDone < m_dropCount){
+            int dropPoint = Random.Range(0, m_numPoints);
+            if (!dropPoints.Contains(dropPoint)){
+                dropPoints.Add(dropPoint);
+                dropsDone++;
+            }
+        }
+
         // add the rest of the points
         for (int i = 0; i < m_numPoints; i++){
 
@@ -54,6 +68,15 @@ public class TerrainGenerator : MonoBehaviour
 
             // apply the gradient
             nextPoint.y += i * (float)m_distanceBetweenPoints * m_gradient;
+
+            // drop the point if it comes after a drop point
+            int dropTimes = dropPoints.FindAll(x => i >= x).Count;
+            nextPoint.y -= dropTimes * m_dropHeight;
+
+            // if this point is RIGHT BEFORE the drop point, increase its Y value
+            if (dropPoints.Contains(i + 1)){
+                nextPoint.y += 2;
+            }
 
             // add the next point to the list
             points.Add(nextPoint);

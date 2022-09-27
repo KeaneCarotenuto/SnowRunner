@@ -19,7 +19,7 @@ public class fbManager : MonoBehaviour
         }
     }
 
-    public void Share()
+    public void Share( )
     {
         if (!FB.IsLoggedIn)
         {
@@ -29,7 +29,7 @@ public class fbManager : MonoBehaviour
         else
         {
 
-            FB.ShareLink(contentTitle: "Growl Games Studio",
+            FB.ShareLink(contentTitle: "SnowRunner",
             contentURL: new System.Uri("http://www.growlgamesstudio.com"),
             contentDescription: "Like and Share my page",
             callback: onShare);

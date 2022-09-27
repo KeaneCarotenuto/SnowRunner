@@ -117,7 +117,7 @@ public class PointsManager : MonoBehaviour
         return totalPoints;
     }
 
-    private int GetTotalPoints()
+    public int GetTotalPoints()
     {
         int totalPoints = 0;
         for (int i = 0; i < m_oldCombos.Count; i++){
