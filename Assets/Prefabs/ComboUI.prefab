@@ -229,8 +229,10 @@ MonoBehaviour:
   m_tricksText: {fileID: 4029198913527740734}
   m_pointsText: {fileID: 4029198911748804232}
   m_doFade: 0
-  m_fadeTime: 1
-  m_fadeDelay: 1
+  m_fadeTime: 2
+  m_fadeDelay: 2
+  m_tricksColorDoing: {r: 0.46666667, g: 0.8666667, b: 0.46666667, a: 1}
+  m_tricksColorDone: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &4029198913527740732
 GameObject:
   m_ObjectHideFlags: 0

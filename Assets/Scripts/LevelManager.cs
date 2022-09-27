@@ -15,4 +15,14 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
     }
+    
+    public static void RestartGame()
+    {
+        Time.timeScale = 1;
+        LoadGame();
+    }
+
+    public static void Quit(){
+        Application.Quit();
+    }
 }
