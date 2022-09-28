@@ -51,6 +51,18 @@ public class PointsManager : MonoBehaviour
 
         // update current combo UI
         UpdateCurrentComboUI();
+
+        // achievement check
+        if (GetTotalPoints() >= 100){
+            Social.ReportProgress(SnowRunnerAchievements.achievement_100_points, 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+        if (GetTotalPoints() >= 200){
+            Social.ReportProgress(SnowRunnerAchievements.achievement_200_points, 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
     }
 
     private void UpdateCurrentComboUI()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using GooglePlayGames;
 
 /// <summary>
 /// Player controller that works with touch controls
@@ -592,6 +593,18 @@ public class PlayerControl : MonoBehaviour
         else{
             // stop the particle system
             m_rightTouch.GetComponent<ParticleSystem>().Stop();
+        }
+
+        // achievement check
+        if (m_topSpeed >= 30.0f){
+            Social.ReportProgress(SnowRunnerAchievements.achievement_30kmh, 100.0f, (bool success) => {
+                // handle success or failure
+            });
+        }
+        if (m_topSpeed >= 40.0f){
+            Social.ReportProgress(SnowRunnerAchievements.achievement_40kmh, 100.0f, (bool success) => {
+                // handle success or failure
+            });
         }
     }
 

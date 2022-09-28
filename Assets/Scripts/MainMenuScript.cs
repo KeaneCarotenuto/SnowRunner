@@ -33,4 +33,20 @@ public class MainMenuScript : MonoBehaviour
             });
         }
     }
+
+    public void openAchievements()
+    {
+        Social.localUser.Authenticate((bool success) =>
+        {
+            if (success)
+            {
+                Debug.Log("You've successfully logged in");
+                Social.ShowAchievementsUI();
+            }
+            else
+            {
+                Debug.Log("Login failed for some reason");
+            }
+        });
+    }
 } // end class

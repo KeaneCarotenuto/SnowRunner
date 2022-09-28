@@ -126,5 +126,9 @@ public class DoublePointsAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
 
         // load ad
         LoadAd();
+
+        Social.ReportProgress(SnowRunnerAchievements.achievement_doubled_up, 100.0f, (bool success) => {
+                // handle success or failure
+            });
      }
 }
