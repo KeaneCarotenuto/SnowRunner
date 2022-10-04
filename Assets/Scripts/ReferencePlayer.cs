@@ -11,7 +11,7 @@ public class ReferencePlayer : MonoBehaviour
     void Start()
     {
         // move to root in hierarchy
-        transform.SetParent(null);
+        //transform.SetParent(null);
     }
 
     private void OnEnable() {
